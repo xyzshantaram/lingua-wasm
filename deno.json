@@ -4,6 +4,9 @@
     "exports": {
         ".": "./mod.ts",
         "./worker": "./src/worker.js",
-        "./wasm": "./pkg"
+        "./wasm": "./pkg/lingua_wasm.d.ts"
+    },
+    "tasks": {
+        "build-wasm": "wasm-pack build && rm ./pkg/.gitignore"
     }
 }

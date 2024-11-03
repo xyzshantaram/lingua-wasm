@@ -1,0 +1,20 @@
+{
+  "name": "lingua-wasm",
+  "type": "module",
+  "collaborators": [
+    "Siddharth Singh <me@shantaram.xyz>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "lingua_wasm_bg.wasm",
+    "lingua_wasm.js",
+    "lingua_wasm_bg.js",
+    "lingua_wasm.d.ts"
+  ],
+  "main": "lingua_wasm.js",
+  "types": "lingua_wasm.d.ts",
+  "sideEffects": [
+    "./lingua_wasm.js",
+    "./snippets/*"
+  ]
+}
