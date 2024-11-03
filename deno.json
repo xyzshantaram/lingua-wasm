@@ -1,5 +1,9 @@
 {
     "name": "@xyzshantaram/lingua-wasm",
-    "version": "0.1.1",
-    "exports": "./mod.ts"
+    "version": "0.1.2",
+    "exports": {
+        ".": "./mod.ts",
+        "./worker": "./src/worker.js",
+        "./wasm": "./pkg"
+    }
 }
