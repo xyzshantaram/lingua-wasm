@@ -20,7 +20,7 @@ export class LanguageDetector {
      * @param workerPath Path to the worker file. If not supplied, it defaults to using the lingua-wasm build present with this package.
      * The worker is simply posted messages with a detection id and the string to detect. It must then respond with the same detection id and the detected language (or undefined.)
      */
-    constructor(workerPath: string = import.meta.resolve('./src/worker.js')) {
+    constructor(workerPath: string = "jsr:@xyzshantaram/lingua-wasm/worker") {
         this.worker = new Worker(workerPath, { type: 'module' });
         this.worker.onmessage = (e: MessageEvent<TranslationResult>) => {
             const { id, res, err } = e.data;
