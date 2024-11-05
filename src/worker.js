@@ -1,4 +1,4 @@
-import { detect } from "jsr:@xyzshantaram/lingua-wasm/wasm";
+import { detect } from "../pkg/lingua_wasm.js";
 
 self.onmessage = (e) => {
     const { id, str } = e.data;

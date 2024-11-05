@@ -1,4 +1,14 @@
-import { LanguageDetector } from "jsr:@xyzshantaram/lingua-wasm";
+import { LanguageDetector } from "./mod.ts";
 
 const d = new LanguageDetector();
-console.log(await d.detect(prompt("What to detect?") || "empty string"));
+let str;
+while (true) {
+    str = prompt("What to detect?");
+    if (!str || ['exit', 'quit'].includes(str)) {
+        d.destroy();
+        Deno.exit(1);
+    }
+    console.time('detection took');
+    console.log(await d.detect(str));
+    console.timeEnd('detection took');
+}

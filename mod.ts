@@ -14,13 +14,14 @@ interface TranslationResult {
 export class LanguageDetector {
     private worker: Worker;
     private pending: Map<string, PromiseWithResolvers<string>> = new Map();
+    destroyed: boolean = false;
 
     /**
      * Instantiate a new LanguageDetector. 
      * @param workerPath Path to the worker file. If not supplied, it defaults to using the lingua-wasm build present with this package.
      * The worker is simply posted messages with a detection id and the string to detect. It must then respond with the same detection id and the detected language (or undefined.)
      */
-    constructor(workerPath: string = "jsr:@xyzshantaram/lingua-wasm/worker") {
+    constructor(workerPath: string = import.meta.resolve("./src/worker.js")) {
         this.worker = new Worker(workerPath, { type: 'module' });
         this.worker.onmessage = (e: MessageEvent<TranslationResult>) => {
             const { id, res, err } = e.data;
@@ -42,11 +43,21 @@ export class LanguageDetector {
      * @returns The ISO 639-3 code of the detected language, or undefined if a language could not be detected.
      */
     detect(str: string): Promise<string | undefined> {
+        this.checkDestroyed();
         const uuid = crypto.randomUUID();
         this.worker.postMessage({ id: uuid, str });
 
         const p = Promise.withResolvers<string>();
         this.pending.set(uuid, p);
         return p.promise;
+    }
+
+    checkDestroyed() {
+        if (this.destroyed) throw new Error("Language detection attempted on a destroyed detector!");
+    }
+
+    destroy() {
+        this.worker.terminate();
+        this.destroyed = true;
     }
 }
