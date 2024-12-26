@@ -1,5 +1,5 @@
 {
-    "tasks": {
-        "build-wasm": "wasm-pack build && rm ./pkg/.gitignore"
-    }
+  "tasks": {
+    "build-wasm": "wasm-pack build --target deno"
+  }
 }
