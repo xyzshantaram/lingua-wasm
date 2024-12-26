@@ -38,4 +38,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "v${{GIT_TAG_NAME}}" "lingua-wasm-$GIT_TAG_NAME" pkg/lingua_wasm_bg.wasm pkg/lingua_wasm_bg.wasm.d.ts pkg/lingua_wasm.d.ts pkg/lingua_wasm.js mod.ts src/worker.js
+          gh release create "v${GIT_TAG_NAME}" "lingua-wasm-$GIT_TAG_NAME" pkg/lingua_wasm_bg.wasm pkg/lingua_wasm_bg.wasm.d.ts pkg/lingua_wasm.d.ts pkg/lingua_wasm.js mod.ts src/worker.js
