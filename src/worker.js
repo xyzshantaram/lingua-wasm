@@ -1,7 +1,7 @@
 import { detect } from "../pkg/lingua_wasm.js";
 
 self.onmessage = (e) => {
-    const { id, str, t } = e.data;
+    const { id, str } = e.data;
     if (!id) {
         throw new Error("No translation id provided!");
     }
@@ -12,5 +12,5 @@ self.onmessage = (e) => {
         });
     }
 
-    self.postMessage({ id, res: detect(str, t) });
+    self.postMessage({ id, res: detect(str) });
 }

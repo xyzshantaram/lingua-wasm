@@ -42,10 +42,10 @@ export class LanguageDetector {
      * @param str The string to detect for.
      * @returns The ISO 639-3 code of the detected language, or undefined if a language could not be detected.
      */
-    detect(str: string, threshold?: number): Promise<Map<string, number>> {
+    detect(str: string): Promise<Map<string, number>> {
         this.checkDestroyed();
         const uuid = crypto.randomUUID();
-        this.worker.postMessage({ id: uuid, str, t: threshold });
+        this.worker.postMessage({ id: uuid, str });
 
         const p = Promise.withResolvers<Map<string, number>>();
         this.pending.set(uuid, p);

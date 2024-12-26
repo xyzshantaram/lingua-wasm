@@ -1,6 +1,6 @@
 mod utils;
 
-use js_sys::Map;
+/* use js_sys::Map; */
 
 use lazy_static::lazy_static;
 use lingua::{LanguageDetector, LanguageDetectorBuilder};
@@ -13,11 +13,11 @@ lazy_static! {
 }
 
 #[wasm_bindgen]
-pub fn detect(s: &str, threshold: Option<f64>) -> Map {
-    /*     DETECTOR
-    .detect_language_of(s)
-    .map(|v| v.iso_code_639_3().to_string()) */
-    let m = Map::new();
+pub fn detect(s: &str) -> Option<String> {
+    DETECTOR
+        .detect_language_of(s)
+        .map(|v| v.iso_code_639_3().to_string())
+    /*     let m = Map::new();
     let t = threshold.unwrap_or(80f64);
     DETECTOR
         .compute_language_confidence_values(s)
@@ -37,5 +37,5 @@ pub fn detect(s: &str, threshold: Option<f64>) -> Map {
             }
         });
 
-    m
+    m */
 }
