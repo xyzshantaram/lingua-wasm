@@ -1,0 +1,40 @@
+name: Build WASM object
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install latest rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
+      
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Build
+        run: wasm-pack build
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            pkg/lingua_wasm_bg.wasm
+            pkg/lingua_wasm_bg.wasm.d.ts
+            pkg/lingua_wasm.wasm.d.ts
+            pkg/lingua_wasm.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
