@@ -34,7 +34,7 @@ jobs:
           files: |
             pkg/lingua_wasm_bg.wasm
             pkg/lingua_wasm_bg.wasm.d.ts
-            pkg/lingua_wasm.wasm.d.ts
+            pkg/lingua_wasm.d.ts
             pkg/lingua_wasm.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
