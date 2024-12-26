@@ -1,6 +1,6 @@
 interface TranslationResult {
     id: string;
-    res?: string;
+    res?: Map<string, number>;
     err?: string;
 }
 
@@ -13,7 +13,7 @@ interface TranslationResult {
  */
 export class LanguageDetector {
     private worker: Worker;
-    private pending: Map<string, PromiseWithResolvers<string>> = new Map();
+    private pending: Map<string, PromiseWithResolvers<Map<string, number>>> = new Map();
     destroyed: boolean = false;
 
     /**
@@ -42,12 +42,12 @@ export class LanguageDetector {
      * @param str The string to detect for.
      * @returns The ISO 639-3 code of the detected language, or undefined if a language could not be detected.
      */
-    detect(str: string): Promise<string | undefined> {
+    detect(str: string, threshold?: number): Promise<Map<string, number>> {
         this.checkDestroyed();
         const uuid = crypto.randomUUID();
-        this.worker.postMessage({ id: uuid, str });
+        this.worker.postMessage({ id: uuid, str, t: threshold });
 
-        const p = Promise.withResolvers<string>();
+        const p = Promise.withResolvers<Map<string, number>>();
         this.pending.set(uuid, p);
         return p.promise;
     }
