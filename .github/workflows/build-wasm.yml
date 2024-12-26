@@ -1,5 +1,8 @@
 name: Build WASM object
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
