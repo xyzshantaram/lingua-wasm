@@ -3,6 +3,9 @@ name = "lingua-wasm"
 version = "0.1.0"
 authors = ["Siddharth Singh <me@shantaram.xyz>"]
 edition = "2018"
+license = "MIT"
+repository = "https://github.com/xyzshantaram/lingua-wasm"
+description = "WASM build of lingua-wasm for use in TypeScript projects"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
